@@ -1,0 +1,8 @@
+site_name: Práctica Mkdocs
+
+nav:
+    - Principal: index.md
+    - Acerca de: about.md
+    - Practica IoT: iot.md
+
+theme: material
