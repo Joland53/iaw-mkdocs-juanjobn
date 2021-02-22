@@ -1,1 +1,0 @@
-# Juan José Berbel Najas
