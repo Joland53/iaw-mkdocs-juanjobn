@@ -1,0 +1,1597 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
+    
+    
+      
+        <title>Practica IoT - Práctica Mkdocs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2c0c5eaf.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.7fa14f5b.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#iot-dashboard-sensores-mqtt-telegraf-influxdb-y-grafana" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Práctica Mkdocs" class="md-header__button md-logo" aria-label="Práctica Mkdocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Práctica Mkdocs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Practica IoT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Práctica Mkdocs" class="md-nav__button md-logo" aria-label="Práctica Mkdocs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Práctica Mkdocs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        Acerca de
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Practica IoT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Practica IoT
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion" class="md-nav__link">
+    Descripción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensores" class="md-nav__link">
+    Sensores
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wemos-d1-mini" class="md-nav__link">
+    Wemos D1 mini
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-de-temperaturahumedad-dht11" class="md-nav__link">
+    Sensor de temperatura/humedad DHT11
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor de temperatura/humedad DHT11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-del-sensor-de-temperaturahumedad-dht11-y-publicacion-de-datos-en-el-broker-mqtt" class="md-nav__link">
+    Lectura del sensor de temperatura/humedad DHT11 y publicación de datos en el broker MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-de-co2" class="md-nav__link">
+    Sensor de CO2
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor de CO2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-del-sensor-de-co2-y-publicacion-de-datos-en-el-broker-mqtt" class="md-nav__link">
+    Lectura del sensor de CO2 y publicación de datos en el broker MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqtt-broker" class="md-nav__link">
+    MQTT Broker
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Broker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archivo-de-configuracion-mosquittoconf" class="md-nav__link">
+    Archivo de configuración mosquitto.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-mqtt-para-publicar-en-un-topic-publish" class="md-nav__link">
+    Cliente MQTT para publicar en un topic (publish)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-mqtt-para-suscribirse-a-un-topic-subscribe" class="md-nav__link">
+    Cliente MQTT para suscribirse a un topic (subscribe)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telegraf" class="md-nav__link">
+    Telegraf
+  </a>
+  
+    <nav class="md-nav" aria-label="Telegraf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_1" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-del-archivo-de-configuracion-telegrafconf" class="md-nav__link">
+    Creación del archivo de configuración telegraf.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-archivo-telegrafconf-para-suscribirnos-a-un-topic-mqtt" class="md-nav__link">
+    Configuración del archivo telegraf.conf para suscribirnos a un topic MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato-value" class="md-nav__link">
+    Formato: Value
+  </a>
+  
+    <nav class="md-nav" aria-label="Formato: Value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer" class="md-nav__link">
+    Ejemplo de configuración de la sección inputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato-influxdb-line-protocol" class="md-nav__link">
+    Formato: InfluxDB Line Protocol
+  </a>
+  
+    <nav class="md-nav" aria-label="Formato: InfluxDB Line Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-de-mensajes-validos-con-la-sintaxis-del-protocolo-influxdb-line-protocol" class="md-nav__link">
+    Ejemplos de mensajes válidos con la sintaxis del protocolo InfluxDB line protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer_1" class="md-nav__link">
+    Ejemplo de configuración de la sección inputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-archivo-telegrafconf-para-almacenar-los-datos-en-influxdb-outputsinfluxdb" class="md-nav__link">
+    Configuración del archivo telegraf.conf para almacenar los datos en InfluxDB (outputs.influxdb)
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del archivo telegraf.conf para almacenar los datos en InfluxDB (outputs.influxdb)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urls" class="md-nav__link">
+    urls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skip_database_creation" class="md-nav__link">
+    skip_database_creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#username-y-password" class="md-nav__link">
+    username y password
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-outputsmqtt_consumer" class="md-nav__link">
+    Ejemplo de configuración de la sección outputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#influxdb" class="md-nav__link">
+    InfluxDB
+  </a>
+  
+    <nav class="md-nav" aria-label="InfluxDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_2" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conectar-a-influxdb-desde-un-terminal" class="md-nav__link">
+    Conectar a InfluxDB desde un terminal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grafana" class="md-nav__link">
+    Grafana
+  </a>
+  
+    <nav class="md-nav" aria-label="Grafana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_3" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-un-data-source" class="md-nav__link">
+    Configuración de un data source
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de un data source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-forma-manual" class="md-nav__link">
+    Configuración de forma manual
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-con-aprovisionamiento-automatico" class="md-nav__link">
+    Configuración con aprovisionamiento automático
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-un-dashboard" class="md-nav__link">
+    Configuración de un dashboard
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de un dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-con-aprovisionamiento-automatico_1" class="md-nav__link">
+    Configuración con aprovisionamiento automático
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jekyll/" class="md-nav__link">
+        Practica Jekyll
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion" class="md-nav__link">
+    Descripción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensores" class="md-nav__link">
+    Sensores
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wemos-d1-mini" class="md-nav__link">
+    Wemos D1 mini
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-de-temperaturahumedad-dht11" class="md-nav__link">
+    Sensor de temperatura/humedad DHT11
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor de temperatura/humedad DHT11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-del-sensor-de-temperaturahumedad-dht11-y-publicacion-de-datos-en-el-broker-mqtt" class="md-nav__link">
+    Lectura del sensor de temperatura/humedad DHT11 y publicación de datos en el broker MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor-de-co2" class="md-nav__link">
+    Sensor de CO2
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor de CO2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lectura-del-sensor-de-co2-y-publicacion-de-datos-en-el-broker-mqtt" class="md-nav__link">
+    Lectura del sensor de CO2 y publicación de datos en el broker MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mqtt-broker" class="md-nav__link">
+    MQTT Broker
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT Broker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archivo-de-configuracion-mosquittoconf" class="md-nav__link">
+    Archivo de configuración mosquitto.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-mqtt-para-publicar-en-un-topic-publish" class="md-nav__link">
+    Cliente MQTT para publicar en un topic (publish)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-mqtt-para-suscribirse-a-un-topic-subscribe" class="md-nav__link">
+    Cliente MQTT para suscribirse a un topic (subscribe)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#telegraf" class="md-nav__link">
+    Telegraf
+  </a>
+  
+    <nav class="md-nav" aria-label="Telegraf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_1" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-del-archivo-de-configuracion-telegrafconf" class="md-nav__link">
+    Creación del archivo de configuración telegraf.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-archivo-telegrafconf-para-suscribirnos-a-un-topic-mqtt" class="md-nav__link">
+    Configuración del archivo telegraf.conf para suscribirnos a un topic MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato-value" class="md-nav__link">
+    Formato: Value
+  </a>
+  
+    <nav class="md-nav" aria-label="Formato: Value">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer" class="md-nav__link">
+    Ejemplo de configuración de la sección inputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato-influxdb-line-protocol" class="md-nav__link">
+    Formato: InfluxDB Line Protocol
+  </a>
+  
+    <nav class="md-nav" aria-label="Formato: InfluxDB Line Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-de-mensajes-validos-con-la-sintaxis-del-protocolo-influxdb-line-protocol" class="md-nav__link">
+    Ejemplos de mensajes válidos con la sintaxis del protocolo InfluxDB line protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer_1" class="md-nav__link">
+    Ejemplo de configuración de la sección inputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-del-archivo-telegrafconf-para-almacenar-los-datos-en-influxdb-outputsinfluxdb" class="md-nav__link">
+    Configuración del archivo telegraf.conf para almacenar los datos en InfluxDB (outputs.influxdb)
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del archivo telegraf.conf para almacenar los datos en InfluxDB (outputs.influxdb)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#urls" class="md-nav__link">
+    urls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skip_database_creation" class="md-nav__link">
+    skip_database_creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#username-y-password" class="md-nav__link">
+    username y password
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-configuracion-de-la-seccion-outputsmqtt_consumer" class="md-nav__link">
+    Ejemplo de configuración de la sección outputs.mqtt_consumer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#influxdb" class="md-nav__link">
+    InfluxDB
+  </a>
+  
+    <nav class="md-nav" aria-label="InfluxDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_2" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conectar-a-influxdb-desde-un-terminal" class="md-nav__link">
+    Conectar a InfluxDB desde un terminal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grafana" class="md-nav__link">
+    Grafana
+  </a>
+  
+    <nav class="md-nav" aria-label="Grafana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#descripcion-del-servicio-en-docker-composeyml_3" class="md-nav__link">
+    Descripción del servicio en docker-compose.yml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-un-data-source" class="md-nav__link">
+    Configuración de un data source
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de un data source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-forma-manual" class="md-nav__link">
+    Configuración de forma manual
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-con-aprovisionamiento-automatico" class="md-nav__link">
+    Configuración con aprovisionamiento automático
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-un-dashboard" class="md-nav__link">
+    Configuración de un dashboard
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de un dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-con-aprovisionamiento-automatico_1" class="md-nav__link">
+    Configuración con aprovisionamiento automático
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="iot-dashboard-sensores-mqtt-telegraf-influxdb-y-grafana">IoT Dashboard - Sensores, MQTT, Telegraf, InfluxDB y Grafana</h1>
+<h2 id="descripcion">Descripción</h2>
+<p>En cada aula del instituto vamos a tener un <a href="https://wemos.cc">Wemos D1 mini</a>, un <a href="https://wiki.keyestudio.com/KS0457_keyestudio_CCS811_Carbon_Dioxide_Air_Quality_Sensor">sensor de CO2</a> y un <a href="https://learn.adafruit.com/dht/overview">sensor de temperatura/humedad DHT11</a> que van a ir tomando medidas de forma constante y las van a ir publicando en un <em>topic</em> de un <a href="http://mqtt.org"><em>broker</em> MQTT</a>. Podríamos seguir la siguiente estructura de nombres para los <em>topics</em> del edificio:</p>
+<pre><code>iescelia/aula&lt;número&gt;/temperature
+iescelia/aula&lt;número&gt;/humidity
+iescelia/aula&lt;número&gt;/co2
+</code></pre>
+<p>Por ejemplo para el <code>aula20</code> tendríamos los siguientes <em>topics</em>:</p>
+<pre><code>iescelia/aula20/temperature
+iescelia/aula20/humidity
+iescelia/aula20/co2
+</code></pre>
+<p>También existirá un agente de <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> que estará suscrito a los  <em>topics</em> del <a href="http://mqtt.org"><em>broker</em> MQTT</a> donde se publican los valores recogidos por los sensores.  El agente de <a href="https://www.influxdata.com/time-series-platform/telegraf/">Telegraf</a> insertará los valores que recoge del <a href="http://mqtt.org"><em>broker</em> MQTT</a> en una base de datos <a href="https://www.influxdata.com/">InfluxDB</a>, que es un sistema gestor de bases de datos diseñado para almacenar series temporales de datos.Finalmente tendremos un servicio web <a href="https://grafana.com">Grafana</a> que nos permitirá visualizar los datos en un panel de control.</p>
+<h2 id="sensores">Sensores</h2>
+<h3 id="wemos-d1-mini">Wemos D1 mini</h3>
+<p>Wemos D1 mini es una placa de prototipado que incluye el SoC (System on Chip) ESP8266 que integra un microcontrolador de propósito general de 32 bits y conectividad WiFi.</p>
+<h3 id="sensor-de-temperaturahumedad-dht11">Sensor de temperatura/humedad DHT11</h3>
+<h4 id="lectura-del-sensor-de-temperaturahumedad-dht11-y-publicacion-de-datos-en-el-broker-mqtt">Lectura del sensor de temperatura/humedad DHT11 y publicación de datos en el broker MQTT</h4>
+<p>Vamos a hacer uso de la librería Adafruit MQTT para conectar con el broker MQTT y publicar los datos que vamos obteniendo de los sensores DHT11. Podemos utilizar el siguiente código de ejemplo:</p>
+<pre><code>#include &quot;DHT.h&quot;
+#include &lt;ESP8266WiFi.h&gt;
+#include &quot;Adafruit_MQTT.h&quot;
+#include &quot;Adafruit_MQTT_Client.h&quot;
+
+#define DHTPIN D4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+#define WLAN_SSID       &quot;PUT_YOUR_WLAN_SSID_HERE&quot; 
+#define WLAN_PASS       &quot;PUT_YOUR_WLAN_PASS_HERE&quot; 
+
+#define MQTT_SERVER      &quot;PUT_YOUR_MQTT_SERVER_HERE&quot; 
+#define MQTT_SERVERPORT  1883
+#define MQTT_USERNAME    &quot;&quot;
+#define MQTT_KEY         &quot;&quot;
+#define MQTT_FEED_TEMP   &quot;iescelia/aula22/temperature&quot; 
+#define MQTT_FEED_HUMI   &quot;iescelia/aula22/humidity&quot; 
+
+WiFiClient client;
+
+Adafruit_MQTT_Client mqtt(&amp;client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, MQTT_USERNAME, MQTT_KEY);
+
+Adafruit_MQTT_Publish temperatureFeed = Adafruit_MQTT_Publish(&amp;mqtt, MQTT_FEED_TEMP);
+
+Adafruit_MQTT_Publish humidityFeed = Adafruit_MQTT_Publish(&amp;mqtt, MQTT_FEED_HUMI);
+
+//----------------------------------------------
+
+void connectWiFi();
+
+//----------------------------------------------
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println(&quot;IoT demo&quot;);
+  dht.begin();
+  connectWiFi();
+  connectMQTT();
+}
+
+//----------------------------------------------
+
+void loop() {
+  delay(2000);
+
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println(&quot;Failed to read from DHT sensor!&quot;);
+    return;
+  }
+
+  Serial.print(&quot;Humidity: &quot;);
+  Serial.print(h);
+  Serial.print(&quot; %\t&quot;);
+  Serial.print(&quot;Temperature: &quot;);
+  Serial.print(t);
+  Serial.println(&quot; *C &quot;);
+
+  temperatureFeed.publish(t);
+  humidityFeed.publish(h);
+}
+
+//----------------------------------------------
+
+void connectWiFi() {
+  WiFi.begin(WLAN_SSID, WLAN_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+     delay(500);
+     Serial.print(&quot;.&quot;);
+  }
+
+  Serial.println(&quot;WiFi connected&quot;);
+  Serial.println(&quot;IP address: &quot;);
+  Serial.println(WiFi.localIP());
+}
+
+//----------------------------------------------
+
+void connectMQTT() {
+  if (mqtt.connected())
+    return;
+
+  Serial.print(&quot;Connecting to MQTT... &quot;);
+  while (mqtt.connect() != 0) {
+       Serial.println(&quot;Error. Retrying MQTT connection in 5 seconds...&quot;);
+       mqtt.disconnect();
+       delay(5000);
+  }
+}
+
+</code></pre>
+<h3 id="sensor-de-co2">Sensor de CO2</h3>
+<h4 id="lectura-del-sensor-de-co2-y-publicacion-de-datos-en-el-broker-mqtt">Lectura del sensor de CO2 y publicación de datos en el broker MQTT</h4>
+<p>Vamos a hacer uso de la librería Adafruit MQTT para conectar con el broker MQTT y publicar los datos que vamos obteniendo de los sensores CCS811. Podemos utilizar el siguiente código de ejemplo:</p>
+<pre><code>#include &lt;ESP8266WiFi.h&gt;
+#include &lt;Adafruit_Sensor.h&gt;
+#include &quot;Adafruit_MQTT.h&quot;
+#include &quot;Adafruit_MQTT_Client.h&quot;
+#include &lt;CCS811.h&gt;
+
+// WiFi configuration
+#define WLAN_SSID       &quot;PUT_YOUR_WLAN_SSID_HERE&quot; 
+#define WLAN_PASS       &quot;PUT_YOUR_WLAN_PASS_HERE&quot; 
+
+// MQTT configuration
+#define MQTT_SERVER      &quot;PUT_YOUR_MQTT_SERVER_HERE&quot; 
+#define MQTT_SERVERPORT  1883
+#define MQTT_USERNAME    &quot;&quot;
+#define MQTT_KEY         &quot;&quot;
+#define MQTT_FEED_CO2   &quot;iescelia/aula22/co2&quot; 
+#define MQTT_FEED_TVOC  &quot;iescelia/aula22/tvoc&quot; 
+
+// WiFi connection
+WiFiClient client;
+
+// MQTT connection
+Adafruit_MQTT_Client mqtt(&amp;client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, MQTT_USERNAME, MQTT_KEY);
+
+// Feed to publish CO2
+Adafruit_MQTT_Publish co2Feed = Adafruit_MQTT_Publish(&amp;mqtt, MQTT_FEED_CO2);
+
+// Feed to publish TVOC
+Adafruit_MQTT_Publish tvocFeed = Adafruit_MQTT_Publish(&amp;mqtt, MQTT_FEED_TVOC);
+
+CCS811 sensor;
+
+//----------------------------------------------
+
+void connectWiFi();
+void connectMQTT();
+void initSensor();
+
+//----------------------------------------------
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println(&quot;CO2 IES Celia&quot;);
+  connectWiFi();
+  connectMQTT();
+  initSensor();
+}
+
+//----------------------------------------------
+
+void loop() {
+  // Wait a few seconds between measurements.
+  delay(1000);
+
+  if(sensor.checkDataReady() == false){
+    Serial.println(&quot;Data is not ready!&quot;);
+    return;
+  }
+
+  float co2 = sensor.getCO2PPM();
+  float tvoc = sensor.getTVOCPPB();
+
+  Serial.print(&quot;CO2: &quot;);
+  Serial.print(co2);
+  Serial.print(&quot; ppm\t&quot;);
+  Serial.print(&quot;TVOC: &quot;);
+  Serial.print(tvoc);
+  Serial.println(&quot; ppb&quot;);
+
+  co2Feed.publish(co2);
+  tvocFeed.publish(tvoc);
+}
+
+//----------------------------------------------
+
+void initSensor() {
+  // Wait for the chip to be initialized completely
+  while(sensor.begin() != 0){
+    Serial.println(&quot;Failed to init chip, please check if the chip connection is fine&quot;);
+    delay(1000);
+  }
+
+  // eClosed      Idle (Measurements are disabled in this mode)
+  // eCycle_1s    Constant power mode, IAQ measurement every second
+  // eCycle_10s   Pulse heating mode IAQ measurement every 10 seconds
+  // eCycle_60s   Low power pulse heating mode IAQ measurement every 60 seconds
+  // eCycle_250ms Constant power mode, sensor measurement every 250ms
+  sensor.setMeasCycle(sensor.eCycle_250ms);
+}
+
+//----------------------------------------------
+
+void connectWiFi() {
+  WiFi.begin(WLAN_SSID, WLAN_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+     delay(500);
+     Serial.print(&quot;.&quot;);
+  }
+
+  Serial.println(&quot;WiFi connected&quot;);
+  Serial.println(&quot;IP address: &quot;);
+  Serial.println(WiFi.localIP());
+}
+
+//----------------------------------------------
+
+void connectMQTT() {
+  if (mqtt.connected())
+    return;
+
+  Serial.print(&quot;Connecting to MQTT... &quot;);
+  while (mqtt.connect() != 0) {
+       Serial.println(&quot;Error. Retrying MQTT connection in 5 seconds...&quot;);
+       mqtt.disconnect();
+       delay(5000);
+  }
+}
+</code></pre>
+<h2 id="mqtt-broker">MQTT Broker</h2>
+<p>MQTT (MQ Telemetry Transport) es un protocolo de mensajería estándar utilizado en las aplicaciones de Internet de las cosas (IoT). Se trata de un protocolo de mensajería muy ligero basado en el patrón publish/subscribe, donde los mensajes son publicados en un topic de un MQTT Broker que se encargará de distribuirlos a todos los suscriptores que se hayan suscrito a dicho topic.</p>
+<p>Eclipse Mosquitto será el MQTT Broker que vamos a utilizar en este proyecto.</p>
+<h3 id="descripcion-del-servicio-en-docker-composeyml">Descripción del servicio en docker-compose.yml</h3>
+<p>docker-compose.yml</p>
+<pre><code>mosquitto: 
+    image: eclipse-mosquitto:2 
+    ports:
+      - 1883:1883 
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf 
+      - mosquitto_data:/mosquitto/data 
+      - mosquitto_log:/mosquitto/log 
+</code></pre>
+<h3 id="archivo-de-configuracion-mosquittoconf">Archivo de configuración mosquitto.conf</h3>
+<p>Este archivo estará almacenado en el directorio ./mosquitto/mosquitto.conf de nuestra máquina local. Como vamos a utilizar la versión 2 del broker MQTT eclipse-mosquitto vamos a necesitar crear un archivo de configuración llamado mosquitto.conf que incluya las siguientes opciones de configuración.</p>
+<p>mosquitto.conf</p>
+<pre><code>listener 1883 
+allow_anonymous true
+</code></pre>
+<p>En este punto, el contenido de nuestro directorio de trabajo debe tener los siguientes archivos.</p>
+<pre><code>.
+├── docker-compose.yml
+├── mosquitto
+    └── mosquitto.conf
+</code></pre>
+<h3 id="cliente-mqtt-para-publicar-en-un-topic-publish">Cliente MQTT para publicar en un topic (publish)</h3>
+<p>En esta sección vamos a explicar cómo podemos hacer uso de un cliente MQTT para publicar mensajes de prueba en el broker MQTT que acabamos de crear.</p>
+<p>Esta comprobación deberíamos realizarla antes de empezar a trabajar directamente con los sensores sobre el broker MQTT. Una vez que hayamos comprobado que podemos publicar y suscribirnos a los mensajes del broker con este cliente, ya podríamos realizar el siguiente paso para publicar mensajes con los sensores y recibirlos con el agente de Telegraf.</p>
+<p>Ejemplo:</p>
+<p>En este ejemplo vamos a publicar el valor 30 en el topic iescelia/aula22/co2 del broker MQTT test.mosquitto.org. Este broker es de prueba, por lo tanto, tendremos que cambiar este broker por la dirección IP de nuestro broker MQTT.</p>
+<pre><code>docker run --init -it --rm efrecon/mqtt-client pub -h test.mosquitto.org -p 1883 -t &quot;iescelia/aula22/co2&quot; -m 30
+</code></pre>
+<h3 id="cliente-mqtt-para-suscribirse-a-un-topic-subscribe">Cliente MQTT para suscribirse a un topic (subscribe)</h3>
+<p>Podemos hacer uso de un cliente MQTT para suscribirnos a los mensajes que se publican en un topic específico del broker MQTT.</p>
+<p>Esta comprobación deberíamos realizarla antes de empezar a trabajar directamente con los sensores sobre el broker MQTT. Una vez que hayamos comprobado que podemos publicar y suscribirnos a los mensajes del broker con este cliente, ya podríamos realizar el siguiente paso para publicar mensajes con los sensores y recibirlos con el agente de Telegraf.</p>
+<p>Ejemplo:</p>
+<p>En este ejemplo nos vamos a suscribir al topic iescelia/ del broker MQTT test.mosquitto.org. Con el wildcard estamos indicando que queremos suscribirnos a todos los topics que existan dentro de iescelia/, es decir, todos los mensajes que se publiquen en cada una de las aulas.</p>
+<p>Tenga en cuenta que tendrá que cambiar el broker test.mosquitto.org por la dirección IP de nuestro broker MQTT.</p>
+<pre><code>docker run --init -it --rm efrecon/mqtt-client sub -h test.mosquitto.org -t &quot;iescelia/#&quot;
+</code></pre>
+<h2 id="telegraf">Telegraf</h2>
+<p>Telegraf es un agente que nos permite recopilar y reportar métricas. Las métricas recogidas se pueden enviar a almacenes de datos, colas de mensajes o servicios como: InfluxDB, Graphite, OpenTSDB, Datadog, Kafka, MQTT, NSQ, entre otros.</p>
+<h3 id="descripcion-del-servicio-en-docker-composeyml_1">Descripción del servicio en docker-compose.yml</h3>
+<p>docker-compose.yml</p>
+<pre><code>telegraf: 
+    image: telegraf 
+      volumes:
+        - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf 
+      depends_on: 
+        - influxdb
+</code></pre>
+<h3 id="creacion-del-archivo-de-configuracion-telegrafconf">Creación del archivo de configuración telegraf.conf</h3>
+<p>En primer lugar tenemos que crear el archivo de configuración telegraf.conf en nuestra máquina local. Para crear el archivo de configuración haremos uso del comando telegram config dentro del contenedor de Telegraf.</p>
+<pre><code>docker run --rm telegraf telegraf config &gt; telegraf.conf
+</code></pre>
+<p>Una vez que hemos creado el archivo telegraf.conf lo movemos al directorio telegraf de nuestro proyecto. El contenido de nuestro directorio de trabajo debe tener los siguientes archivos.</p>
+<pre><code>.
+├── docker-compose.yml
+├── mosquitto
+│   └── mosquitto.conf
+└── telegraf
+    └── telegraf.conf
+</code></pre>
+<h3 id="configuracion-del-archivo-telegrafconf-para-suscribirnos-a-un-topic-mqtt">Configuración del archivo telegraf.conf para suscribirnos a un topic MQTT</h3>
+<p>Tendremos que buscar la sección inputs.mqtt_consumer dentro del archivo telegraf.conf y configurar los siguientes valores:</p>
+<ul>
+<li>
+<p>servers</p>
+</li>
+<li>
+<p>topics</p>
+</li>
+<li>
+<p>data_format</p>
+</li>
+</ul>
+<p>Existen más directivas de configuración (qos, client_id, username, password, etc.), pero en este proyecto sólo vamos a utilizar los valores que hemos indicado anteriormente.</p>
+<p>servers<br />
+En esta directiva de configuración indicamos la URL del broker MQTT al que queremos conectarnos. En nuestro caso pondremos el nombre del servicio mosquitto que es como lo hemos definido en nuestro archivo docker-compose.yml.</p>
+<p>topics<br />
+En esta directiva indicamos los topics a los que queremos suscribirnos. En nuestro caso pondremos el topic iescelia/#. El carácter # al final del topic indica que nos vamos a suscribir a cualquier topic que exista después de la cadena iescelia/.</p>
+<p>data_format<br />
+En esta directiva indicamos cómo es el formato de los datos que vamos a recibir por MQTT.</p>
+<p>Telegraf contiene muchos plugins de propósito general que permiten parsear datos de entrada para convertirlos en el modelo de datos de métricas que utiliza InfluxDB.</p>
+<h3 id="formato-value">Formato: Value</h3>
+<p>El formato value permite convertir valores simples en métricas de Telegraf.</p>
+<p>Es necesario indicar el tipo de dato al que queremos convertir el valor leído, utilizando la opción de configuración data_type. Los tipos de datos disponibles son:</p>
+<ol>
+<li>
+<p>integer</p>
+</li>
+<li>
+<p>float o long</p>
+</li>
+<li>
+<p>string</p>
+</li>
+<li>
+<p>boolean</p>
+</li>
+</ol>
+<h4 id="ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer">Ejemplo de configuración de la sección inputs.mqtt_consumer</h4>
+<p>Si los mensajes que vamos a recibir por MQTT sólo contienen valores numéricos de tipo real que representan valores de temperatura, tendríamos que indicar:</p>
+<p>data_format = "value" y</p>
+<p>data_type = "float".</p>
+<p>Una posible configuración para la sección inputs.mqtt_consumer del archivo telegraf.conf podría ser la siguiente.</p>
+<pre><code> [[inputs.mqtt_consumer]]
+   servers = [&quot;tcp://mosquitto:1883&quot;] 
+
+   topics = [
+     &quot;iescelia/#&quot; 
+   ]
+
+  data_format = &quot;value&quot; 
+  data_type = &quot;float&quot; 
+</code></pre>
+<h3 id="formato-influxdb-line-protocol">Formato: InfluxDB Line Protocol</h3>
+<p>El formato influx no necesita ninguna configuración adicional. Los valores que se reciben son parseados automáticamente a métricas de Telegraf.</p>
+<p>Si utilizamos data_format = "influx" los mensajes de entrada tienen que cumplir la sintaxis del protocolo InfluxDB line protocol.</p>
+<p>A continuación se muestra un ejemplo de un mensaje con las sintaxis de InfluxDB line protocol.</p>
+<pre><code>weather,location=us-midwest temperature=82 1465839830100400200
+  |    -------------------- --------------  |
+  |             |             |             |
+  |             |             |             |
++-----------+--------+-+---------+-+---------+
+|measurement|,tag_set| |field_set| |timestamp|
++-----------+--------+-+---------+-+---------+
+</code></pre>
+<p>El mensaje se compone de cuatro componentes:</p>
+<ul>
+<li>
+<p>measurement: Indica la estructura de datos donde vamos a almacenar los valores en InfluxDB.</p>
+</li>
+<li>
+<p>tag_set: Es opcional. Son tags opcionales asociados al dato. Van detrás de una coma después del nombre de la measurement, sin espacios en blanco.</p>
+</li>
+<li>
+<p>field_set: Son los datos. Aparecen después de un espacio en blanco después de la meausrement. Podemos indicar varios datos separados por comas.</p>
+</li>
+<li>
+<p>timestamp: Es opcional. Es una marca de tiempo en Unix con precisión de nanosegundos.</p>
+</li>
+</ul>
+<h4 id="ejemplos-de-mensajes-validos-con-la-sintaxis-del-protocolo-influxdb-line-protocol">Ejemplos de mensajes válidos con la sintaxis del protocolo InfluxDB line protocol</h4>
+<pre><code>weather,location=us-midwest temperature=82 
+</code></pre>
+<pre><code>1465839830100400200
+</code></pre>
+<pre><code>weather temperature=82 1465839830100400200
+</code></pre>
+<pre><code>weather temperature=82
+</code></pre>
+<pre><code>weather temperature=82,humidity=71 1465839830100400200
+</code></pre>
+<pre><code>weather temperature=82,humidity=71
+</code></pre>
+<h4 id="ejemplo-de-configuracion-de-la-seccion-inputsmqtt_consumer_1">Ejemplo de configuración de la sección inputs.mqtt_consumer</h4>
+<p>Una posible configuración para la sección inputs.mqtt_consumer del archivo telegraf.conf podría ser la siguiente.</p>
+<pre><code> [[inputs.mqtt_consumer]]
+   servers = [&quot;tcp://mosquitto:1883&quot;] 
+
+   topics = [
+     &quot;iescelia/#&quot; 
+   ]
+
+   data_format = &quot;influx&quot; 
+</code></pre>
+<h3 id="configuracion-del-archivo-telegrafconf-para-almacenar-los-datos-en-influxdb-outputsinfluxdb">Configuración del archivo telegraf.conf para almacenar los datos en InfluxDB (outputs.influxdb)</h3>
+<p>Tendremos que buscar la sección outputs.influxdb dentro del archivo telegraf.conf y configurar los siguientes valores:</p>
+<ul>
+<li>
+<p>urls</p>
+</li>
+<li>
+<p>database</p>
+</li>
+<li>
+<p>skip_database_creation</p>
+</li>
+<li>
+<p>username</p>
+</li>
+<li>
+<p>password</p>
+</li>
+</ul>
+<p>Existen más directivas de configuración, pero en este proyecto sólo vamos a utilizar los valores que hemos indicado anteriormente.</p>
+<h4 id="urls">urls</h4>
+<p>En esta directiva de configuración indicamos la URL de la instancia de InfluxDB donde vamos a almacenar los datos. En nuestro caso pondremos influxdb que es el nombre que le hemos puesto al servicio en el archivo docker-compose.yml</p>
+<h4 id="database">database</h4>
+<p>En esta directiva indicamos el nombre de la base de datos donde vamos a almacenar las métricas.</p>
+<h4 id="skip_database_creation">skip_database_creation</h4>
+<p>Permite evitar la creación de bases de datos en InfluxDB cuando está configurada como true. Se recomienda configurarla a true cuando estemos trabajando con usuarios que no tienen permisos para crear bases de datos o cuando la base de datos ya exista.</p>
+<h4 id="username-y-password">username y password</h4>
+<p>En esta directiva configuramos los parámetros de autenticación para conectarnos a InfluxDB.</p>
+<h4 id="ejemplo-de-configuracion-de-la-seccion-outputsmqtt_consumer">Ejemplo de configuración de la sección outputs.mqtt_consumer</h4>
+<p>Una posible configuración de la sección outputs.influxdb podría ser la siguiente:</p>
+<pre><code>[[outputs.influxdb]]
+  urls = [&quot;http://influxdb:8086&quot;] 
+
+  database = &quot;iescelia_db&quot; 
+
+  skip_database_creation = true 
+
+  username = &quot;root&quot; 
+  password = &quot;root&quot;
+</code></pre>
+<h2 id="influxdb">InfluxDB</h2>
+<p>InfluxDB es un sistema gestor de bases de datos diseñado para almacenar bases de datos de series temporales (TSBD - Time Series Databases). Estas bases de datos se suelen utilizar en aplicaciones de monitorización, donde es necesario almacenar y analizar grandes cantidades de datos con marcas de tiempo, como pueden ser datos de uso de cpu, uso memoria, datos de sensores de IoT, etc.</p>
+<h3 id="descripcion-del-servicio-en-docker-composeyml_2">Descripción del servicio en docker-compose.yml</h3>
+<p>docker-compose.yml</p>
+<pre><code>influxdb: 
+    image: influxdb 
+    ports:
+      - 8086:8086 
+    volumes:
+      - influxdb_data:/var/lib/influxdb 
+    environment:
+      - INFLUXDB_DB=iescelia_db 
+      - INFLUXDB_ADMIN_USER=root 
+      - INFLUXDB_ADMIN_PASSWORD=root 
+      - INFLUXDB_HTTP_AUTH_ENABLED=true 
+</code></pre>
+<h3 id="conectar-a-influxdb-desde-un-terminal">Conectar a InfluxDB desde un terminal</h3>
+<p>Podemos conectarnos al contenedor de InfluxDB desde un terminal para comprobar si los datos que estamos recogiendo de los sensores se están insertando de forma correcta en la base de datos.</p>
+<p>En primer lugar necesitamos obtener el ID del contenedor que se está ejecutando con InfluxDB. Para obtener el listado de todos los contenedores que están en ejecución podemos ejecutar el siguiente comando:</p>
+<pre><code>docker ps
+</code></pre>
+<p>Ahora sólo tenemos que buscar el ID del contenedor con InfluxDB entre la lista de contenedores. En el ejemplo que se muestra a continuación sería el valor 27b06d552719.</p>
+<pre><code>CONTAINER ID        IMAGE                 COMMAND                  ...
+27b06d552719        influxdb              &quot;/entrypoint.sh infl…&quot;   ...
+...
+</code></pre>
+<p>Una vez que tenemos el ID del contenedor de InfluxDB, creamos un nuevo proceso con el comando /bin/bash dentro del contenedor para obtener un terminal que nos permita interactuar con el contenedor.</p>
+<pre><code>docker exec -it 27b06d552719 /bin/bash
+</code></pre>
+<p>Una vez que tenemos un terminal en el contenedor de InfluxDB, utilizamos el cliente influx para conectarnos al sistema gestor de bases de datos con el usuario y contraseña que hemos creado en el archivo docker-compose.yml.</p>
+<pre><code>influx -username root -password root
+</code></pre>
+<p>Después de autenticarnos, tendremos acceso al shell de InfluxDB donde podemos interaccionar con la base de datos con sentencias InfluxQL (Influx Query Language), que tienen una sintaxis muy similar a SQL.</p>
+<h2 id="grafana">Grafana</h2>
+<p>Grafana es un servicio web que nos permite visualizar en un panel de control los datos almacenados en InfluxDB y otros sistemas gestores de bases de datos de series temporales.</p>
+<h3 id="descripcion-del-servicio-en-docker-composeyml_3">Descripción del servicio en docker-compose.yml</h3>
+<p>docker-compose.yml</p>
+<pre><code>grafana: 
+    image: grafana/grafana:7.4.0 
+    ports:
+      - 3000:3000 
+    volumes:
+      - grafana_data:/var/lib/grafana 
+    depends_on: 
+      - influxdb
+</code></pre>
+<h3 id="configuracion-de-un-data-source">Configuración de un data source</h3>
+<p>Grafana permite utilizar diferentes data sources, en nuestro proyecto utilizaremos InfluxDB pero también es posible utilizar AWS CloudWatch, Elasticsearch, MySQL o PostgreSQl entre otros.</p>
+<h4 id="configuracion-de-forma-manual">Configuración de forma manual</h4>
+<p>Antes de crear un dashboard es necesario crear un data source. Sólo los usuarios que tengan rol de administrador podrán crear un data source.</p>
+<p>Para crear un data source debe seguir los siguientes pasos.</p>
+<ol>
+<li>
+<p>Accede al menu lateral haciendo clien en el icono de Grafana del encabezado superior.</p>
+</li>
+<li>
+<p>Accede a la sección "Data Sources".</p>
+</li>
+<li>
+<p>Añada un nuevo data source.</p>
+</li>
+<li>
+<p>Seleccione InfluxDB en el desplegable donde se indica el tipo de data source.</p>
+</li>
+<li>
+<p>Configure los parámetros url, database, user y password de su servicio InfluxDB.</p>
+</li>
+</ol>
+<p>En la documentación oficial puede encontrar más información sobre cómo utilizar InfluxDB con Grafana.</p>
+<h4 id="configuracion-con-aprovisionamiento-automatico">Configuración con aprovisionamiento automático</h4>
+<p>Es posible configurar Grafana para que utilize un archivo de configuración de forma automática para evitar tener que realizar la configuración de forma manual.</p>
+<p>En nuestro proyecto, vamos a crear un archivo con el nombre datasource.yml dentro de la siguiente estructura de directorios.</p>
+<pre><code>├── grafana-provisioning
+│   └── datasources
+│       └── datasource.yml`
+</code></pre>
+<p>El contenido del archivo datasource.yml será el siguiente.</p>
+<pre><code>apiVersion: 1
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: iescelia_db 
+    user: root 
+    password: root 
+    url: http://influxdb:8086 
+    isDefault: true
+    editable: true
+</code></pre>
+<p>Para que el aprovisionamiento se realice forma correcta, tenemos que definir un nuevo volumen en el servicio de Grafana en el archivo docker-compose.yml.</p>
+<p>docker-compose.yml</p>
+<pre><code>grafana: 
+    image: grafana/grafana:7.4.0 
+    ports:
+      - 3000:3000 
+    volumes:
+      - grafana_data:/var/lib/grafana 
+      - ./grafana-provisioning/:/etc/grafana/provisioning 
+    depends_on: 
+      - influxdb
+</code></pre>
+<h3 id="configuracion-de-un-dashboard">Configuración de un dashboard</h3>
+<h4 id="configuracion-con-aprovisionamiento-automatico_1">Configuración con aprovisionamiento automático</h4>
+<p>Es posible configurar Grafana para que utilize un archivo de configuración de forma automática para evitar tener que realizar la configuración del dashboard de forma manual.</p>
+<p>En nuestro proyecto, vamos a crear los archivos dashboard.yml y CO2Dashboard.json dentro de la siguiente estructura de directorios.</p>
+<pre><code>├── grafana-provisioning
+│   ├── dashboards
+│   │   ├── CO2Dashboard.json
+│   │   └── dashboard.yml
+│   └── datasources
+│       └── datasource.yml
+</code></pre>
+<p>El contenido del archivo dashboard.yml será el siguiente.</p>
+<pre><code>apiVersion: 1
+providers:
+- name: InfluxDB
+  folder: ''
+  type: file
+  disableDeletion: false
+  editable: true
+  options:
+    path: /etc/grafana/provisioning/dashboards
+</code></pre>
+<p>Un dashboard de Grafana se representa por un objeto JSON, que almacena todos los metadatos del dashboard. Estos metadatos incluyen propiedades de los paneles, variables, etc. El archivo CO2Dashboard.json contiene los metadatos del los paneles que hemos creado para el dashboard de este proyecto.</p>
+<p>A continuación se muestra una imagen del dashboard almacenado en el archivo CO2Dashboard.json.
+<img alt="grafana" src="images/grafana.PNG" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../about/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Acerca de
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../jekyll/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Practica Jekyll
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      
+    
+  </body>
+</html>
